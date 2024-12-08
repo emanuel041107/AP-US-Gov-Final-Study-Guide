@@ -25,6 +25,8 @@
             display: flex;
             justify-content: space-around;
             padding: 10px;
+            position: sticky;
+            top: 0;
         }
         nav a {
             color: #fff;
@@ -58,13 +60,52 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .flashcards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .flashcard {
+            width: 45%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fafafa;
+            cursor: pointer;
+            text-align: center;
+        }
+        .flashcard p {
+            display: none;
+        }
+        .flashcard.active p {
+            display: block;
+        }
         footer {
             text-align: center;
             padding: 20px 0;
             background: #333;
             color: #fff;
         }
+        .quiz {
+            margin-top: 20px;
+        }
+        .quiz h3 {
+            color: #333;
+        }
+        .quiz label {
+            display: block;
+            margin: 5px 0;
+        }
     </style>
+    <script>
+        function toggleFlashcard(card) {
+            card.classList.toggle('active');
+        }
+        function checkQuizAnswer(correctAnswerId, feedbackId) {
+            const correct = document.getElementById(correctAnswerId).checked;
+            document.getElementById(feedbackId).innerText = correct ? "Correct!" : "Try again!";
+        }
+    </script>
 </head>
 <body>
 
@@ -89,6 +130,16 @@
             <li><strong>Limited Government:</strong> Government powers are restricted by the Constitution.</li>
             <li><strong>Federalism:</strong> Power is divided between national and state governments.</li>
         </ul>
+        <div class="flashcards">
+            <div class="flashcard" onclick="toggleFlashcard(this)">
+                <h4>Popular Sovereignty</h4>
+                <p>The government's power comes from the people.</p>
+            </div>
+            <div class="flashcard" onclick="toggleFlashcard(this)">
+                <h4>Judicial Review</h4>
+                <p>Courts decide if laws align with the Constitution.</p>
+            </div>
+        </div>
     </div>
 
     <div id="philosophers" class="section">
@@ -116,6 +167,13 @@
             <li><strong>Shaw v. Reno:</strong> Declared racial gerrymandering unconstitutional.</li>
             <li><strong>Citizens United v. FEC:</strong> Allowed unlimited political spending by corporations and unions.</li>
         </ul>
+        <div class="quiz">
+            <h3>Quiz: Which case established judicial review?</h3>
+            <label><input type="radio" id="quiz1-option1" name="quiz1"> McCulloch v. Maryland</label>
+            <label><input type="radio" id="quiz1-option2" name="quiz1"> Marbury v. Madison</label>
+            <button onclick="checkQuizAnswer('quiz1-option2', 'quiz1-feedback')">Submit</button>
+            <p id="quiz1-feedback"></p>
+        </div>
     </div>
 </div>
 
